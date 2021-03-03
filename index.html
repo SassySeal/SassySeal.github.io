@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<style>
+    #clickbtn{
+        height: 150px;
+        width: 200px;
+    }
+</style>
+
+<html>
+<div id = "wrappe">
+
+    
+    <h3 id = "number">0</h3>
+    <button id = "clickbtn" onclick="increaseNum()">Smak</button>
+</div>
+
+</html>
+
+<script>
+var num = 0;
+
+    function increaseNum(){
+        num++;
+        document.getElementById("number").innerHTML = num; 
+    }
+</script>
