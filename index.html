@@ -16,10 +16,17 @@
             .d-none{
                 display: none;
             }
+            #debug{
+                position: absolute;
+            }
         </style>
         <title>smaaaaaak!!</title>
     </head>
     <body>
+        <div id="debug">
+            <input type="number" id="incnum" value="0">
+            <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT</button>
+        </div>
         <div id = "wrapper">
 
             <div id="number_sek">
@@ -42,12 +49,12 @@
 
         var num = 0;
         var crush = -1;
-
+/*
             //initialisierung
             window.onload=function(){
                 setInterval(autoclick,1000);
             }
-
+*/
             //after every btn click
             function update(){
                 document.getElementById("number").innerHTML = num;
@@ -65,14 +72,17 @@
             }
 
             //numbersection
-            function increaseNum(){
-                num++;
+            function increaseNum(n=1){
+                if(crush>0){
+                    num+=crush;
+                }
+                num+=n;
                 if(crush == -1 && num >= cost['crush']){
                     crusher();
                 }
                 update();
             }
-
+/*
             //autoclickcounter
             function autoclick(){
                 if(crush>0){
@@ -80,13 +90,11 @@
                 }
                 update();
             }
-
+*/
             //crushersection:
             function crusher(){
                 crush=0;
-                console.log(document.getElementById("crusher_sek").classList);
                 document.getElementById("crusher_sek").classList=[];
-                console.log(document.getElementById("crusher_sek").classList);
             }
 
             function increaseCrush(n=1){
