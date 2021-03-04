@@ -30,6 +30,7 @@ window.onload=function(){
         document.getElementById("display_cost_clickpover").innerHTML = clickpower*(5^(Math.log(basis=2,clickpower)-1)*10);
         document.getElementById("friends_cost").innerHTML = friends_price_base*(friends+1);
     }
+    update();
 }
 
 function loadCsv(){
@@ -67,12 +68,14 @@ function smak(){
 function increase_clickpower(){
     clickpower *= 2;
     eaten_smaks -= 5^(getBaseLog(2*clickpower)-1)*10;
+    update();
 }
 
 //Funktion soll aufgerunden werden, wenn Button "Get Friends" gerdrückt wird
 function get_friends(){
     friends += 1;
     eaten_smaks -= friends_price_base^friends;
+    update();
 }
 
 function update(){

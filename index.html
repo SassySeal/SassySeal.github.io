@@ -11,17 +11,17 @@
         <div class="background">
             <div class= "pos-abs p-1">
                 <div id="debug" class="d-none">
-                    <input type="number" id="incnum" value="0" min="0">
-                    <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
-                    <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
+                    <input type="number" id="inc_smaks" value="0" min="0">
+                    <button onclick='eaten_smaks+=Number(document.getElementById("inc_smaks").value);update();'>CHEAT +Num</button>
+                    <button onclick='eaten_smaks=Number(document.getElementById("inc_smaks").value);update();'>CHEAT =Num</button>
                     <br><br>
-                    <input type="number" id="incfriends" value="-1" min="-1">
-                    <button onclick='friends+=Number(document.getElementById("incfriends").value);update();'>CHEAT +friends</button>
-                    <button onclick='friends=Number(document.getElementById("incfriends").value);update();'>CHEAT =friends</button>
+                    <input type="number" id="inc_friends" value="-1" min="-1">
+                    <button onclick='friends+=Number(document.getElementById("inc_friends").value);update();'>CHEAT +friends</button>
+                    <button onclick='friends=Number(document.getElementById("inc_friends").value);update();'>CHEAT =friends</button>
                     <br><br>
-                    <input type="number" id="incCPow" value="1" min="1">
-                    <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
-                    <button onclick='clicker_level=Number(document.getElementById("incCPow").value);update();'>CHEAT =CPow</button>
+                    <input type="number" id="inc_clickpower" value="1" min="1">
+                    <button onclick='clickPower+=Number(document.getElementById("inc_clickpower").value);update();'>CHEAT +CPow</button>
+                    <button onclick='clickPower=Number(document.getElementById("inc_clickpower").value);update();'>CHEAT =CPow</button>
                     <br><br>
                 </div>
                 <button id="enable_debug" onclick='debug()'>enable_cheats</button>&nbsp;<button onclick="reset()">reset</button>
@@ -34,11 +34,11 @@
                 </div>
 
                 <div id="clickpower_section">
-                    <h3>ClickPower: <span id = "clicker_level">0</span></h3>
+                    <h3>ClickPower: <span id = "clickpower">0</span></h3>
                     <button class = "clickbtn" id="button_buy_clickpower" onclick="increase_clickpower()">More Click Power<div id = "display_cost_clickpover">10</div></button>
                 </div>
 
-                <div id="friend_section" class="d-none">
+                <div id="friends_section" class="d-none">
                     <h3>friends: <span id = "friends">0</span></h3>
                     <button class = "clickbtn" id="button_get_friends" onclick="get_friends()">share it!!!<div id = "friends_cost">100</div></button>
                 </div>
