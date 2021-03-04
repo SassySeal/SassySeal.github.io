@@ -8,6 +8,10 @@ var friends = 0;
 var friends_reward_step = 10;
 var friends_price_base = 1.04;
 
+window.onclick=function(){
+    save();
+}
+
 window.onload=function(){
     setInterval(save, 1000);
     
@@ -16,17 +20,36 @@ window.onload=function(){
     var stored = localStorage['smak_clicker'];
     if (stored){
         myVar = JSON.parse(stored); 
-        num = myVar["num"];
+        eaten_smaks = myVar["eaten_smaks"];
         friends = myVar["friends"];
-        clicker_level = myVar["clicker_level"];
-        if(num >= cost['friends']){
-            document.getElementById("friends_sek").classList.remove("d-none");
+        clickpower = myVar["clickpower"];
+        if(eaten_smaks >= friends_price_base){
+            document.getElementById("friends_section").classList.remove("d-none");
         }
         //kosten ausrechnen
-        document.getElementById("display_cost_clickpover").innerHTML = clicker_level*cost['ClickPow'];
-        document.getElementById("friends_cost").innerHTML = cost['friends']*(friends+1);
-        document.getElementById("friends10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
+        document.getElementById("display_cost_clickpover").innerHTML = clickpower*(5^(Math.log(basis=2,clickpower)-1)*10);
+        document.getElementById("friends_cost").innerHTML = friends_price_base*(friends+1);
     }
+}
+
+function loadCsv(){
+    $.ajax({
+        type: "GET",
+        url: "test.csv",
+        dataType: "text",
+        success: function(data){
+            var csvRows = [];
+            rows = data.replace(/(\r\n|\n|\r)/gm, ";");
+            rows = rows.split(';');
+            //console.log(rows);
+            for(var i = 0; i < rows.length; i++){
+                var temp = rows[i];
+                csvRows[i] = temp.split(',');
+            }
+            //console.log(csvRows);
+            csvArray = csvRows;
+        }
+    });
 }
 
 //logarithm y to base x
@@ -90,7 +113,7 @@ function reset(){
     clickpower = 1;
     friends = 0;
     document.getElementById("friends_section").classList.add("d-none");
-    document.getElementById("display_cost_clickpover").innerHTML = ;
+    document.getElementById("display_cost_clickpover").innerHTML = "nop";
     update();
 }
 

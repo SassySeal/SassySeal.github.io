@@ -1,8 +1,16 @@
 body,html{
+    font-family: Arial, Helvetica, sans-serif;
     height: 100%;
     margin: 0;
 }
-.bg{
+h3{
+    color:black;
+    text-shadow: -1px 1px 2px #FFF,
+				  1px 1px 2px #FFF,
+				  1px -1px 0 #FFF,
+				  -1px -1px 0 #FFF;
+}
+.background{
     background-image: url("background.png");
     height: 100%;
     background-position: center;
