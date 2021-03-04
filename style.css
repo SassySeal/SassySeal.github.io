@@ -3,6 +3,7 @@ body,html{
     height: 100%;
     margin: 0;
 }
+<<<<<<< HEAD
 h3{
     color:black;
     text-shadow: -1px 1px 2px #FFF,
@@ -10,6 +11,8 @@ h3{
 				  1px -1px 0 #FFF,
 				  -1px -1px 0 #FFF;
 }
+=======
+>>>>>>> origin/Marc
 .background{
     background-image: url("background.png");
     height: 100%;
@@ -25,11 +28,11 @@ button{
     border-style: solid;
     opacity: 0.8;
 }
-.clickbtn{
+.click_button{
     height: 150px;
     width: 200px;
 }
-.clickbtn_ext{
+.click_button_small{
     height: 150px;
     width: 50px;
 }
