@@ -28,6 +28,11 @@
                 <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
             </div>
 
+            <div id="click_improver">
+                <h3>ClickPower: <span id = "click_improvements">0</span></h3>
+                <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power</button>
+            </div>
+
         </div>
 
         <script>
@@ -37,26 +42,58 @@
 
         var num = 0;
         var crush = -1;
+        var clicker_level = 1;
 
             //initialisierung
             window.onload=function(){
                 setInterval(autoclick,1000);
+                setInterval(save, 5000);
+
+                //spielstand aus cache laden
+                var stored = localStorage['smak_clicker'];
+                if (stored){
+                   myVar = JSON.parse(stored); 
+                   num = myVar["num"];
+                   crush = myVar["crush"];
+                   clicker_level = myVar["clicker_level"];
+                   document.getElementById("crusher_sek").classList=[];
+                }
+                update();
+            }
+            
+            function save(){
+                var jstuff  = {
+                    "clicker_level": clicker_level, 
+                    "crush": crush,
+                    "num": num
+                }
+                localStorage['smak_clicker'] = JSON.stringify(jstuff);
             }
 
             //after every btn click
             function update(){
                 document.getElementById("number").innerHTML = num;
                 document.getElementById("crusher").innerHTML = crush;
+                document.getElementById("click_improvements").innerHTML = clicker_level;
                 if(num<cost['crush']){
                     document.getElementById("crusherbtn").disabled=true;
                 }else{
                     document.getElementById("crusherbtn").disabled=false;
                 }
             }
+            
+            function increaseClickPow(){
+                if(num > 10){
+                    num -= 10;
+                    clicker_level++;
+                    update();
+                }
+            }
 
             //numbersection
             function increaseNum(){
-                num++;
+                num += clicker_level;
+
                 if(crush == -1 && num >= cost['crush']){
                     crusher();
                 }
