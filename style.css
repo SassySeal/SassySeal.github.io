@@ -1,0 +1,37 @@
+body,html{
+    height: 100%;
+    margin: 0;
+}
+.bg{
+    background-image: url("background.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+}
+button{
+    background-color: wheat;
+    border-radius: 12px;
+    border-style: solid;
+    opacity: 0.8;
+}
+.clickbtn{
+    height: 150px;
+    width: 200px;
+}
+.clickbtn_ext{
+    height: 150px;
+    width: 50px;
+}
+#wrapper{
+    text-align: center;
+}
+.d-none, .d-none *{
+    display: none;
+}
+
+.p-abs{
+    position: absolute;
+}
