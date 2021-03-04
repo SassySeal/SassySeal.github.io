@@ -4,19 +4,20 @@
     <head>
         <link rel="icon" type="image/png" href="favicon.png">
         <link rel="stylesheet" href="style.css"/>
+        
         <title>smaaaaaak!!</title>
     </head>
     <body>
         <div class="bg">
-            <div class= "p-abs">
+            <div class= "pos-abs p-1">
                 <div id="debug" class="d-none">
                     <input type="number" id="incnum" value="0" min="0">
                     <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
                     <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
                     <br><br>
-                    <input type="number" id="inccrush" value="-1" min="-1">
-                    <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
-                    <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
+                    <input type="number" id="incfriends" value="-1" min="-1">
+                    <button onclick='friends+=Number(document.getElementById("incfriends").value);update();'>CHEAT +friends</button>
+                    <button onclick='friends=Number(document.getElementById("incfriends").value);update();'>CHEAT =friends</button>
                     <br><br>
                     <input type="number" id="incCPow" value="1" min="1">
                     <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
@@ -33,176 +34,18 @@
                 </div>
 
                 <div id="click_improver">
-                    <h3>ClickPower(<span id = "click_improvements_cost">10</span>): <span id = "click_improvements">0</span></h3>
-                    <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power</button>
+                    <h3>ClickPower: <span id = "click_improvements">0</span></h3>
+                    <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power<div id = "click_improvements_cost">10</div></button>
                 </div>
 
-                <div id="crusher_sek" class="d-none">
-                    <h3>crushers(<span id = "crusher_cost">100</span>): <span id = "crusher">0</span></h3>
-                    <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
-                    <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10<br><span id = "crusher10_cost">100</span></button>
+                <div id="friendser_sek" class="d-none">
+                    <h3>friends: <span id = "friendser">0</span></h3>
+                    <button class = "clickbtn" id="friendserbtn" onclick="increasefriends()">share it!!!<div id = "friendser_cost">100</div></button>
+                    <button class = "clickbtn_ext" id="friendserbtn_ext" onclick="increasefriends(10)">+10<div id = "friendser10_cost">100</div></button>
                 </div>
             </div>
         </div>
         
-        <script>
-
-        var cost=[];
-        cost['crush']=100;
-        cost['ClickPow']=10;
-
-        var csvArray;
-        var num = 0;
-        var crush = -1;
-        var clicker_level = 1;
-
-            window.onclick=function(){
-                save();
-            }
-
-            //initialisierung
-            window.onload=function(){
-                setInterval(autoclick,1000);
-                setInterval(save, 1000);
-
-
-                loadCsv();
-                //spielstand aus cache laden
-                var stored = localStorage['smak_clicker'];
-                if (stored){
-                    myVar = JSON.parse(stored); 
-                    num = myVar["num"];
-                    crush = myVar["crush"];
-                    clicker_level = myVar["clicker_level"];
-                    if(num >= cost['crush']){
-                        document.getElementById("crusher_sek").classList.remove("d-none");
-                    }
-                    document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
-                }
-                update();
-            }
-            
-            function loadCsv(){
-                $.ajax({
-                    type: "GET",
-                    url: "test.csv",
-                    dataType: "text",
-                    success: function(data){
-                        var csvRows = [];
-                        rows = data.replace(/(\r\n|\n|\r)/gm, ";");
-                        rows = rows.split(';');
-                        //console.log(rows);
-                        for(var i = 0; i < rows.length; i++){
-                            var temp = rows[i];
-                            csvRows[i] = temp.split(',');
-                        }
-                        //console.log(csvRows);
-                        csvArray = csvRows;
-                    }
-                });
-            }
-
-            function save(){
-                var jstuff  = {
-                    "clicker_level": clicker_level, 
-                    "crush": crush,
-                    "num": num
-                }
-
-                localStorage['smak_clicker'] = JSON.stringify(jstuff);
-            }
-          
-            function reset(){
-                num=0;
-                crush=-1;
-                clicker_level=1;
-                document.getElementById("crusher_sek").classList.add("d-none");
-                document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
-                update();
-            }
-
-            //after every btn click
-            function update(){
-                document.getElementById("number").innerHTML = num;
-                document.getElementById("crusher").innerHTML = crush;
-                document.getElementById("click_improvements").innerHTML = clicker_level;
-                if(num<cost['crush']*(crush+1)){
-                    document.getElementById("crusherbtn").disabled=true;
-                }else{
-                    document.getElementById("crusherbtn").disabled=false;
-                }
-                if(num<(10*cost['crush']*crush+cost['crush']*55)){
-                    document.getElementById("crusherbtn_ext").disabled=true;
-                }else{
-                    document.getElementById("crusherbtn_ext").disabled=false;
-                }
-            }
-            
-            function increaseClickPow(){
-                if(num > cost['ClickPow']*clicker_level){
-                    num -= cost['ClickPow']*clicker_level;
-                    clicker_level++;
-                    document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
-                    update();
-                }
-            }
-
-            //numbersection
-            function increaseNum(n=1){
-                if(crush>0){
-                    num+=crush;
-                }
-                num+=n;
-                num += clicker_level;
-                if(crush == -1 && num >= cost['crush']){
-                    crusher();
-                }
-                update();
-            }
-
-            //autoclickcounter
-            function autoclick(){
-                if(crush>0){
-                    num+=crush;
-                }
-                update();
-            }
-
-            //crushersection:
-            function crusher(){
-                crush=0;
-                document.getElementById("crusher_cost").innerHTML = cost['crush']*(crush+1);
-                document.getElementById("crusher10_cost").innerHTML = 10*cost['crush']*crush+cost['crush']*55;
-                document.getElementById("crusher_sek").classList.remove("d-none");
-            }
-
-            function increaseCrush(n=1){
-                let test=0;
-                for(i=0;i<n;i++){
-                    crush++;
-                    test+=(cost['crush']*crush);
-                    num-=(cost['crush']*crush);
-                }
-                document.getElementById("crusher_cost").innerHTML = cost['crush']*(crush+1);
-                document.getElementById("crusher10_cost").innerHTML = 10*cost['crush']*crush+cost['crush']*55;
-                update();
-            }
-            //end_crushersection
-            
-            //debug
-            function debug(){
-                let btn=document.getElementById("enable_debug");
-                console.log(btn);
-                if(btn.innerHTML=="enable_cheats"){
-                    console.log(true);
-                    document.getElementById("debug").classList.remove("d-none");
-                    btn.innerHTML="disable_cheats";
-                }else{
-                    console.log(false);
-                    document.getElementById("debug").classList.add("d-none");
-                    btn.innerHTML="enable_cheats";
-                }
-            }
-        </script>
+        <script src="script.js"></script>
     </body>
 </html>
