@@ -97,6 +97,14 @@ function update(){
     document.getElementById("span_eaten_smaks").innerHTML = eaten_smaks;
     document.getElementById("span_friends").innerHTML = friends;
     document.getElementById("span_clickpower").innerHTML = clickpower;
+    document.getElementById("clickpower_cost").innerHTML = "("+Math.pow(5,getBaseLog(2,clickpower)+1)*10+")";
+    document.getElementById("friends_cost").innerHTML = "("+Math.floor(Math.pow(friends_price_base*3,friends))+")";
+
+    if(eaten_smaks < Math.pow(5,getBaseLog(2,clickpower)+1)*10){
+        document.getElementById("button_clickpower").disabled = true;
+    } else {
+        document.getElementById("button_clickpower").disabled = false;
+    }
 
     if(eaten_smaks< Math.floor(Math.pow(friends_price_base*3,friends))){
         document.getElementById("button_friends").disabled = true;
@@ -104,10 +112,16 @@ function update(){
         document.getElementById("button_friends").disabled = false;
     }
 
-    if(eaten_smaks < Math.pow(5,getBaseLog(2,clickpower)+1)*10){
-        document.getElementById("button_clickpower").disabled = true;
+    if(clickpower == 1 && eaten_smaks<30){
+        document.getElementById("section_clickpower").classList.add("d-none");
     } else {
-        document.getElementById("button_clickpower").disabled = false;
+        document.getElementById("section_clickpower").classList.remove("d-none");
+    }
+
+    if(clickpower<4){
+        document.getElementById("section_friends").classList.add("d-none");
+    } else {
+        document.getElementById("section_friends").classList.remove("d-none");
     }
 }
 
