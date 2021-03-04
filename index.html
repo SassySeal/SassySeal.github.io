@@ -2,13 +2,22 @@
 <html lang="en">
     <head>
         <style>
-            body{
-                background-color:lightcoral;
+            body,html{
+                height: 100%;
+                margin: 0;
+            }
+            .bg{
+                background-image: url("background.png");
+                height: 100%;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
             }
             button{
-                background-color: lightgreen;
+                background-color: wheat;
                 border-radius: 12px;
                 border-style: solid;
+                opacity: 0.8;
             }
             .clickbtn{
                 height: 150px;
@@ -27,47 +36,50 @@
             .p-abs{
                 position: absolute;
             }
+            
         </style>
         <title>smaaaaaak!!</title>
     </head>
     <body>
-        <div class= "p-abs">
-            <div id="debug" class="d-none">
-                <input type="number" id="incnum" value="0">
-                <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
-                <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
-                <br><br>
-                <input type="number" id="inccrush" value="0">
-                <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
-                <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
-                <br><br>
-                <input type="number" id="incCPow" value="0">
-                <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
-                <button onclick='clicker_level=Number(document.getElementById("incCPow").value);update();'>CHEAT =CPow</button>
-                <br><br>
+        <div class="bg">
+            <div class= "p-abs",>
+                <div id="debug" class="d-none">
+                    <input type="number" id="incnum" value="0">
+                    <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
+                    <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
+                    <br><br>
+                    <input type="number" id="inccrush" value="0">
+                    <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
+                    <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
+                    <br><br>
+                    <input type="number" id="incCPow" value="0">
+                    <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
+                    <button onclick='clicker_level=Number(document.getElementById("incCPow").value);update();'>CHEAT =CPow</button>
+                    <br><br>
+                </div>
+                <button id="enable_debug" onclick='debug()'>enable_cheats</button>
             </div>
-            <button id="enable_debug" onclick='debug()'>enable_cheats</button>
+            <div id = "wrapper">
+
+                <div id="number_sek">
+                    <h3>Eaten smaks: <span id = "number">0</span></h3>
+                    <button class = "clickbtn" id="numberbtn" onclick="increaseNum()">Smak</button>
+                </div>
+
+                <div id="crusher_sek" class="d-none">
+                    <h3>crushers: <span id = "crusher">0</span></h3>
+                    <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
+                    <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10</button>
+                </div>
+
+                <div id="click_improver">
+                    <h3>ClickPower: <span id = "click_improvements">0</span></h3>
+                    <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power</button>
+                </div>
+
+            </div>
         </div>
-        <div id = "wrapper">
-
-            <div id="number_sek">
-                <h3>Eaten smaks: <span id = "number">0</span></h3>
-                <button class = "clickbtn" id="numberbtn" onclick="increaseNum()">Smak</button>
-            </div>
-
-            <div id="crusher_sek" class="d-none">
-                <h3>crushers: <span id = "crusher">0</span></h3>
-                <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
-                <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10</button>
-            </div>
-
-            <div id="click_improver">
-                <h3>ClickPower: <span id = "click_improvements">0</span></h3>
-                <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power</button>
-            </div>
-
-        </div>
-
+        
         <script>
 
         var cost=[];
