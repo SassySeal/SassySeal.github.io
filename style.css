@@ -32,6 +32,10 @@ button{
     display: none;
 }
 
-.p-abs{
+.pos-abs{
     position: absolute;
+}
+
+.p-1{
+    padding: 1rem 1rem 1rem 1rem;
 }
