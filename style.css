@@ -2,7 +2,7 @@ body,html{
     height: 100%;
     margin: 0;
 }
-.bg{
+.background{
     background-image: url("background.png");
     height: 100%;
     background-position: center;
@@ -17,11 +17,11 @@ button{
     border-style: solid;
     opacity: 0.8;
 }
-.clickbtn{
+.click_button{
     height: 150px;
     width: 200px;
 }
-.clickbtn_ext{
+.click_button_small{
     height: 150px;
     width: 50px;
 }
