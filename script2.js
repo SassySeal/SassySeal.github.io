@@ -20,9 +20,9 @@ window.onload=function(){
     var stored = localStorage['smak_clicker'];
     if (stored){
         myVar = JSON.parse(stored); 
-        eaten_smaks = myVar["eaten_smaks"];
-        friends = myVar["friends"];
-        clickpower = myVar["clickpower"];
+        eaten_smaks = myVar["eaten_smaks"]??eaten_smaks;
+        friends = myVar["friends"]??friends;
+        clickpower = myVar["clickpower"]??clickpower;
         if(eaten_smaks >= friends_price_base){
             document.getElementById("friends_section").classList.remove("d-none");
         }
@@ -59,7 +59,8 @@ function getBaseLog(x, y) {
 
 //Funktion soll aufgerufen werden, wenn Button "Smak" gedrückt wird
 function smak(){
-    eaten_smaks += clickpower * Math.floor((friends/friends_reward_step)+1) * Math.floor((friends/5*friends_reward_step)+1) * Math.floor((friends/10*friends_reward_step)+1)
+    eaten_smaks += clickpower * Math.floor((friends/friends_reward_step)+1) * Math.floor((friends/5*friends_reward_step)+1) * Math.floor((friends/10*friends_reward_step)+1);
+    update();
 }
 
 //Funktion soll aufgerufen werden, wenn Button "Increase Click Power" gedrückt wird
