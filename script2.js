@@ -8,7 +8,6 @@ var friends = 0;
 var friends_reward_step = 10;
 var friends_price_base = 1.04;
 
-<<<<<<< HEAD
 window.onclick=function(){
     save();
 }
@@ -53,9 +52,6 @@ function loadCsv(){
         }
     });
 }
-
-=======
->>>>>>> origin/Marc
 //logarithm y to base x
 function getBaseLog(x, y) {
     return Math.log(y) / Math.log(x);
@@ -63,32 +59,22 @@ function getBaseLog(x, y) {
 
 //Funktion soll aufgerufen werden, wenn Button "Smak" gedrückt wird
 function smak(){
-<<<<<<< HEAD
     eaten_smaks += clickpower * Math.floor((friends/friends_reward_step)+1) * Math.floor((friends/5*friends_reward_step)+1) * Math.floor((friends/10*friends_reward_step)+1);
     update();
-=======
-    eaten_smaks += clickpower * Math.floor((friends/friends_reward_step)+1) * Math.floor((friends/5*friends_reward_step)+1) * Math.floor((friends/10*friends_reward_step)+1)
->>>>>>> origin/Marc
 }
 
 //Funktion soll aufgerufen werden, wenn Button "Increase Click Power" gedrückt wird
 function increase_clickpower(){
     clickpower *= 2;
     eaten_smaks -= 5^(getBaseLog(2*clickpower)-1)*10;
-<<<<<<< HEAD
     update();
-=======
->>>>>>> origin/Marc
 }
 
 //Funktion soll aufgerunden werden, wenn Button "Get Friends" gerdrückt wird
 function get_friends(){
     friends += 1;
     eaten_smaks -= friends_price_base^friends;
-<<<<<<< HEAD
     update();
-=======
->>>>>>> origin/Marc
 }
 
 function update(){
@@ -107,7 +93,6 @@ function update(){
     } else {
         document.getElementById("button_buy_clickpower").disabled = false;
     }
-<<<<<<< HEAD
 }
 
 
@@ -145,6 +130,4 @@ function debug(){
         document.getElementById("debug").classList.add("d-none");
         btn.innerHTML="enable_cheats";
     }
-=======
->>>>>>> origin/Marc
 }
