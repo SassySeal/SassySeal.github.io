@@ -12,19 +12,16 @@
             <div class= "pos-abs p-1">
                 <div id="debug" class="d-none">
                     <input type="number" id="textfield_smak" value="0" min="0">
-                    <button onclick='increaseNum(Number(document.getElementById("textfield_smak").value))'>CHEAT +Smak</button>
-                    <button onclick='num=Number(document.getElementById("textfield_smak").value);update();'>CHEAT =Smak</button>
+                    <button onclick='eaten_smaks=Number(document.getElementById("textfield_smak").value);'>Set Smak</button>
                     <br><br>
                     <input type="number" id="textfield_clickpower" value="1" min="1">
-                    <button onclick='friends+=Number(document.getElementById("textfield_clickpower").value);update();'>CHEAT +Click Power</button>
-                    <button onclick='friends=Number(document.getElementById("textfield_clickpower").value);update();'>CHEAT =Click Power</button>
+                    <button onclick='clickpower=Number(document.getElementById("textfield_clickpower").value);'>Set Click Power</button>
                     <br><br>
-                    <input type="number" id="textfield_friends" value="0" min="0">
-                    <button onclick='clicker_level+=Number(document.getElementById("textfield_friends").value);update();'>CHEAT +Friends</button>
-                    <button onclick='clicker_level=Number(document.getElementById("textfield_friends").value);update();'>CHEAT =Friends</button>
+                    <input type="number" id="textfield_friends" value="1" min="1">
+                    <button onclick='friends=Number(document.getElementById("textfield_friends").value);'>Set Friends</button>
                     <br><br>
                 </div>
-                <button id="button_debug" onclick='debug()'>debug mode</button>&nbsp;<button onclick="reset()">reset</button>
+                <button id="button_debug" onclick="debug()">open debug mode</button>&nbsp;<button onclick="reset()">reset</button>
             </div>
             <div id = "wrapper">
 
@@ -35,12 +32,12 @@
 
                 <div id="section_clickpower">
                     <h3>ClickPower: <span id = "span_clickpower">0</span></h3>
-                    <button class = "click_button" id="button_clickpower" onclick="increase_clickpower()">Buy Clickpower<div id = "text_clickpower_cost">50</div></button>
+                    <button class = "click_button" id="button_clickpower" onclick="increase_clickpower()">Buy Clickpower</button>
                 </div>
 
-                <div id="section_friends" class="d-none">
+                <div id="section_friends">
                     <h3>Friends: <span id = "span_friends">0</span></h3>
-                    <button class = "click_button" id="button_friends" onclick="get_friends()">Get Friends<div id = "text_friends_cost">100</div></button>
+                    <button class = "click_button" id="button_friends" onclick="get_friends()">Get Friends</button>
                 </div>
             </div>
         </div>
