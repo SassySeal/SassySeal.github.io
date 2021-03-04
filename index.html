@@ -6,16 +6,35 @@
                 height: 150px;
                 width: 200px;
             }
+            .clickbtn_ext{
+                height: 150px;
+                width: 50px;
+            }
             #wrapper{
                 text-align: center;
             }
             .d-none{
                 display: none;
             }
+            #debug, #enable_debug{
+                position: absolute;
+            }
         </style>
         <title>smaaaaaak!!</title>
     </head>
     <body>
+        <div id="enable_debug" class="">
+            <button onclick='debug()'>enable_cheats</button>
+        </div>
+        <div id="debug" class="d-none">
+            <input type="number" id="incnum" value="0">
+            <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
+            <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
+            <br><br>
+            <input type="number" id="inccrush" value="0">
+            <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
+            <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
+        </div>
         <div id = "wrapper">
 
             <div id="number_sek">
@@ -26,6 +45,7 @@
             <div id="crusher_sek" class="d-none">
                 <h3>crushers: <span id = "crusher">0</span></h3>
                 <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
+                <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10</button>
             </div>
 
             <div id="click_improver">
@@ -39,6 +59,7 @@
 
         var cost=[];
         cost['crush']=100;
+        cost['ClickPow']=10;
 
         var num = 0;
         var crush = -1;
@@ -69,7 +90,7 @@
                 }
                 localStorage['smak_clicker'] = JSON.stringify(jstuff);
             }
-
+          
             //after every btn click
             function update(){
                 document.getElementById("number").innerHTML = num;
@@ -80,26 +101,34 @@
                 }else{
                     document.getElementById("crusherbtn").disabled=false;
                 }
+                if(num<cost['crush']*10){
+                    document.getElementById("crusherbtn_ext").disabled=true;
+                }else{
+                    document.getElementById("crusherbtn_ext").disabled=false;
+                }
             }
             
             function increaseClickPow(){
-                if(num > 10){
-                    num -= 10;
+                if(num > cost['ClickPow']){
+                    num -= cost['ClickPow'];
                     clicker_level++;
                     update();
                 }
             }
 
             //numbersection
-            function increaseNum(){
+            function increaseNum(n=1){
+                if(crush>0){
+                    num+=crush;
+                }
+                num+=n;
                 num += clicker_level;
-
                 if(crush == -1 && num >= cost['crush']){
                     crusher();
                 }
                 update();
             }
-
+/*
             //autoclickcounter
             function autoclick(){
                 if(crush>0){
@@ -107,22 +136,25 @@
                 }
                 update();
             }
-
+*/
             //crushersection:
             function crusher(){
                 crush=0;
-                console.log(document.getElementById("crusher_sek").classList);
                 document.getElementById("crusher_sek").classList=[];
-                console.log(document.getElementById("crusher_sek").classList);
             }
 
-            function increaseCrush(){
-                crush++;
-                num-=cost['crush'];
+            function increaseCrush(n=1){
+                crush+=n;
+                num-=(cost['crush']*n);
                 update();
             }
             //end_crushersection
             
+            //debug
+            function debug(){
+                document.getElementById("debug").classList.remove("d-none");
+                document.getElementById("enable_debug").classList.add("d-none");
+            }
         </script>
     </body>
 </html>
