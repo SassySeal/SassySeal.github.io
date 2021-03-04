@@ -2,6 +2,14 @@
 <html lang="en">
     <head>
         <style>
+            body{
+                background-color:lightcoral;
+            }
+            button{
+                background-color: lightgreen;
+                border-radius: 12px;
+                border-style: solid;
+            }
             .clickbtn{
                 height: 150px;
                 width: 200px;
@@ -13,27 +21,32 @@
             #wrapper{
                 text-align: center;
             }
-            .d-none{
+            .d-none, .d-none *{
                 display: none;
             }
-            #debug, #enable_debug{
+            .p-abs{
                 position: absolute;
             }
         </style>
         <title>smaaaaaak!!</title>
     </head>
     <body>
-        <div id="enable_debug" class="">
-            <button onclick='debug()'>enable_cheats</button>
-        </div>
-        <div id="debug" class="d-none">
-            <input type="number" id="incnum" value="0">
-            <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
-            <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
-            <br><br>
-            <input type="number" id="inccrush" value="0">
-            <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
-            <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
+        <div class= "p-abs">
+            <div id="debug" class="d-none">
+                <input type="number" id="incnum" value="0">
+                <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
+                <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
+                <br><br>
+                <input type="number" id="inccrush" value="0">
+                <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
+                <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
+                <br><br>
+                <input type="number" id="incCPow" value="0">
+                <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
+                <button onclick='clicker_level=Number(document.getElementById("incCPow").value);update();'>CHEAT =CPow</button>
+                <br><br>
+            </div>
+            <button id="enable_debug" onclick='debug()'>enable_cheats</button>
         </div>
         <div id = "wrapper">
 
@@ -67,17 +80,19 @@
 
             //initialisierung
             window.onload=function(){
-                setInterval(autoclick,1000);
+                //setInterval(autoclick,1000);
                 setInterval(save, 5000);
 
                 //spielstand aus cache laden
                 var stored = localStorage['smak_clicker'];
                 if (stored){
-                   myVar = JSON.parse(stored); 
-                   num = myVar["num"];
-                   crush = myVar["crush"];
-                   clicker_level = myVar["clicker_level"];
-                   document.getElementById("crusher_sek").classList=[];
+                    myVar = JSON.parse(stored); 
+                    num = myVar["num"];
+                    crush = myVar["crush"];
+                    clicker_level = myVar["clicker_level"];
+                    if(num >= cost['crush']){
+                        document.getElementById("crusher_sek").classList.remove("d-none");
+                    }
                 }
                 update();
             }
@@ -109,8 +124,8 @@
             }
             
             function increaseClickPow(){
-                if(num > cost['ClickPow']){
-                    num -= cost['ClickPow'];
+                if(num > cost['ClickPow']*clicker_level){
+                    num -= cost['ClickPow']*clicker_level;
                     clicker_level++;
                     update();
                 }
@@ -140,7 +155,7 @@
             //crushersection:
             function crusher(){
                 crush=0;
-                document.getElementById("crusher_sek").classList=[];
+                document.getElementById("crusher_sek").classList.remove("d-none");
             }
 
             function increaseCrush(n=1){
@@ -152,8 +167,17 @@
             
             //debug
             function debug(){
-                document.getElementById("debug").classList.remove("d-none");
-                document.getElementById("enable_debug").classList.add("d-none");
+                let btn=document.getElementById("enable_debug");
+                console.log(btn);
+                if(btn.innerHTML=="enable_cheats"){
+                    console.log(true);
+                    document.getElementById("debug").classList.remove("d-none");
+                    btn.innerHTML="disable_cheats";
+                }else{
+                    console.log(false);
+                    document.getElementById("debug").classList.add("d-none");
+                    btn.innerHTML="enable_cheats";
+                }
             }
         </script>
     </body>
