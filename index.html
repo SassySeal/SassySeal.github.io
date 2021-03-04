@@ -1,30 +1,91 @@
 <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .clickbtn{
+                height: 150px;
+                width: 200px;
+            }
+            #wrapper{
+                text-align: center;
+            }
+            .d-none{
+                display: none;
+            }
+        </style>
+        <title>smaaaaaak!!!</title>
+    </head>
+    <body>
+        <div id = "wrapper">
 
-<style>
-    #clickbtn{
-        height: 150px;
-        width: 200px;
-    }
-    #wrapper{
-        text-align: center;
-    }
-</style>
+            <div id="number_sek">
+                <h3>Eaten smaks: <span id = "number">0</span></h3>
+                <button class = "clickbtn" id="numberbtn" onclick="increaseNum()">Smak</button>
+            </div>
 
-<html>
-<div id = "wrapper">
-    
-    <h3 id = "number">0</h3>
-    <button id = "clickbtn" onclick="increaseNum()">Smak2</button>
+            <div id="crusher_sek" class="d-none">
+                <h3>crushers: <span id = "crusher">0</span></h3>
+                <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
+            </div>
 
-</div>
+        </div>
 
+        <script>
+
+        var cost=[];
+        cost['crush']=100;
+
+        var num = 0;
+        var crush = -1;
+
+            //initialisierung
+            window.onload=function(){
+                setInterval(autoclick,1000);
+            }
+
+            //after every btn click
+            function update(){
+                document.getElementById("number").innerHTML = num;
+                document.getElementById("crusher").innerHTML = crush;
+                if(num<cost['crush']){
+                    document.getElementById("crusherbtn").disabled=true;
+                }else{
+                    document.getElementById("crusherbtn").disabled=false;
+                }
+            }
+
+            //numbersection
+            function increaseNum(){
+                num++;
+                if(crush == -1 && num >= cost['crush']){
+                    crusher();
+                }
+                update();
+            }
+
+            //autoclickcounter
+            function autoclick(){
+                if(crush>0){
+                    num+=crush;
+                }
+                update();
+            }
+
+            //crushersection:
+            function crusher(){
+                crush=0;
+                console.log(document.getElementById("crusher_sek").classList);
+                document.getElementById("crusher_sek").classList=[];
+                console.log(document.getElementById("crusher_sek").classList);
+            }
+
+            function increaseCrush(){
+                crush++;
+                num-=cost['crush'];
+                update();
+            }
+            //end_crushersection
+            
+        </script>
+    </body>
 </html>
-
-<script>
-var num = 0;
-
-    function increaseNum(){
-        num++;
-        document.getElementById("number").innerHTML = num; 
-    }
-</script>
