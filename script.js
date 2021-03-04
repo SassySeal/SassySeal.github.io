@@ -26,12 +26,12 @@
                     friends = myVar["friends"];
                     clicker_level = myVar["clicker_level"];
                     if(num >= cost['friends']){
-                        document.getElementById("friendser_sek").classList.remove("d-none");
+                        document.getElementById("friends_sek").classList.remove("d-none");
                     }
                     //kosten ausrechnen
-                    document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
-                    document.getElementById("friendser_cost").innerHTML = cost['friends']*(friends+1);
-                    document.getElementById("friendser10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
+                    document.getElementById("display_cost_clickpover").innerHTML = clicker_level*cost['ClickPow'];
+                    document.getElementById("friends_cost").innerHTML = cost['friends']*(friends+1);
+                    document.getElementById("friends10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
                 }
                 update();
             }
@@ -70,25 +70,25 @@
                 num=0;
                 friends=-1;
                 clicker_level=1;
-                document.getElementById("friendser_sek").classList.add("d-none");
-                document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
+                document.getElementById("friends_sek").classList.add("d-none");
+                document.getElementById("display_cost_clickpover").innerHTML = clicker_level*cost['ClickPow'];
                 update();
             }
 
             //after every btn click
             function update(){
                 document.getElementById("number").innerHTML = num;
-                document.getElementById("friendser").innerHTML = friends;
+                document.getElementById("friends").innerHTML = friends;
                 document.getElementById("click_improvements").innerHTML = clicker_level;
                 if(num<cost['friends']*(friends+1)){
-                    document.getElementById("friendserbtn").disabled=true;
+                    document.getElementById("friendsbtn").disabled=true;
                 }else{
-                    document.getElementById("friendserbtn").disabled=false;
+                    document.getElementById("friendsbtn").disabled=false;
                 }
                 if(num<(10*cost['friends']*friends+cost['friends']*55)){
-                    document.getElementById("friendserbtn_ext").disabled=true;
+                    document.getElementById("friendsbtn_ext").disabled=true;
                 }else{
-                    document.getElementById("friendserbtn_ext").disabled=false;
+                    document.getElementById("friendsbtn_ext").disabled=false;
                 }
             }
             
@@ -96,7 +96,7 @@
                 if(num > cost['ClickPow']*clicker_level){
                     num -= cost['ClickPow']*clicker_level;
                     clicker_level++;
-                    document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
+                    document.getElementById("display_cost_clickpover").innerHTML = clicker_level*cost['ClickPow'];
                     update();
                 }
             }
@@ -109,7 +109,7 @@
                 num+=n;
                 num += clicker_level;
                 if(friends == -1 && num >= cost['friends']){
-                    friendser();
+                    friends();
                 }
                 update();
             }
@@ -122,12 +122,12 @@
                 update();
             }
 
-            //friendsersection:
-            function friendser(){
+            //friendssection:
+            function friends(){
                 friends=0;
-                document.getElementById("friendser_cost").innerHTML = cost['friends']*(friends+1);
-                document.getElementById("friendser10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
-                document.getElementById("friendser_sek").classList.remove("d-none");
+                document.getElementById("friends_cost").innerHTML = cost['friends']*(friends+1);
+                document.getElementById("friends10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
+                document.getElementById("friends_sek").classList.remove("d-none");
             }
 
             function increasefriends(n=1){
@@ -137,11 +137,11 @@
                     test+=(cost['friends']*friends);
                     num-=(cost['friends']*friends);
                 }
-                document.getElementById("friendser_cost").innerHTML = cost['friends']*(friends+1);
-                document.getElementById("friendser10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
+                document.getElementById("friends_cost").innerHTML = cost['friends']*(friends+1);
+                document.getElementById("friends10_cost").innerHTML = 10*cost['friends']*friends+cost['friends']*55;
                 update();
             }
-            //end_friendsersection
+            //end_friendssection
             
             //debug
             function debug(){
