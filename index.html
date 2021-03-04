@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <html lang="en">
     <head>
         <link rel="icon" type="image/png" href="favicon.png">
@@ -88,6 +89,7 @@
         cost['crush']=100;
         cost['ClickPow']=10;
 
+        var csvArray;
         var num = 0;
         var crush = -1;
         var clicker_level = 1;
@@ -101,6 +103,8 @@
                 //setInterval(autoclick,1000);
                 setInterval(save, 1000);
 
+
+                loadCsv();
                 //spielstand aus cache laden
                 var stored = localStorage['smak_clicker'];
                 if (stored){
@@ -116,12 +120,33 @@
                 update();
             }
             
+            function loadCsv(){
+                $.ajax({
+                    type: "GET",
+                    url: "test.csv",
+                    dataType: "text",
+                    success: function(data){
+                        var csvRows = [];
+                        rows = data.replace(/(\r\n|\n|\r)/gm, ";");
+                        rows = rows.split(';');
+                        //console.log(rows);
+                        for(var i = 0; i < rows.length; i++){
+                            var temp = rows[i];
+                            csvRows[i] = temp.split(',');
+                        }
+                        //console.log(csvRows);
+                        csvArray = csvRows;
+                    }
+                });
+            }
+
             function save(){
                 var jstuff  = {
                     "clicker_level": clicker_level, 
                     "crush": crush,
                     "num": num
                 }
+
                 localStorage['smak_clicker'] = JSON.stringify(jstuff);
             }
           
