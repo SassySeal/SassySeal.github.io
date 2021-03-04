@@ -6,6 +6,10 @@
                 height: 150px;
                 width: 200px;
             }
+            .clickbtn_ext{
+                height: 150px;
+                width: 50px;
+            }
             #wrapper{
                 text-align: center;
             }
@@ -13,7 +17,7 @@
                 display: none;
             }
         </style>
-        <title>smaaaaaak!!!</title>
+        <title>smaaaaaak!!</title>
     </head>
     <body>
         <div id = "wrapper">
@@ -26,6 +30,7 @@
             <div id="crusher_sek" class="d-none">
                 <h3>crushers: <span id = "crusher">0</span></h3>
                 <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
+                <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10</button>
             </div>
 
         </div>
@@ -51,6 +56,11 @@
                     document.getElementById("crusherbtn").disabled=true;
                 }else{
                     document.getElementById("crusherbtn").disabled=false;
+                }
+                if(num<cost['crush']*10){
+                    document.getElementById("crusherbtn_ext").disabled=true;
+                }else{
+                    document.getElementById("crusherbtn_ext").disabled=false;
                 }
             }
 
@@ -79,9 +89,9 @@
                 console.log(document.getElementById("crusher_sek").classList);
             }
 
-            function increaseCrush(){
-                crush++;
-                num-=cost['crush'];
+            function increaseCrush(n=1){
+                crush+=n;
+                num-=(cost['crush']*n);
                 update();
             }
             //end_crushersection
