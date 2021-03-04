@@ -2,6 +2,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <html lang="en">
     <head>
+        <link rel="icon" type="image/png" href="favicon.png">
         <style>
             body,html{
                 height: 100%;
@@ -47,20 +48,20 @@
         <div class="bg">
             <div class= "p-abs">
                 <div id="debug" class="d-none">
-                    <input type="number" id="incnum" value="0">
+                    <input type="number" id="incnum" value="0" min="0">
                     <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
                     <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
                     <br><br>
-                    <input type="number" id="inccrush" value="0">
+                    <input type="number" id="inccrush" value="-1" min="-1">
                     <button onclick='crush+=Number(document.getElementById("inccrush").value);update();'>CHEAT +Crush</button>
                     <button onclick='crush=Number(document.getElementById("inccrush").value);update();'>CHEAT =Crush</button>
                     <br><br>
-                    <input type="number" id="incCPow" value="0">
+                    <input type="number" id="incCPow" value="1" min="1">
                     <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
                     <button onclick='clicker_level=Number(document.getElementById("incCPow").value);update();'>CHEAT =CPow</button>
                     <br><br>
                 </div>
-                <button id="enable_debug" onclick='debug()'>enable_cheats</button>
+                <button id="enable_debug" onclick='debug()'>enable_cheats</button>&nbsp;<button onclick="reset()">reset</button>
             </div>
             <div id = "wrapper">
 
@@ -69,15 +70,15 @@
                     <button class = "clickbtn" id="numberbtn" onclick="increaseNum()">Smak</button>
                 </div>
 
-                <div id="crusher_sek" class="d-none">
-                    <h3>crushers: <span id = "crusher">0</span></h3>
-                    <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
-                    <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10</button>
+                <div id="click_improver">
+                    <h3>ClickPower(<span id = "click_improvements_cost">10</span>): <span id = "click_improvements">0</span></h3>
+                    <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power</button>
                 </div>
 
-                <div id="click_improver">
-                    <h3>ClickPower: <span id = "click_improvements">0</span></h3>
-                    <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power</button>
+                <div id="crusher_sek" class="d-none">
+                    <h3>crushers(<span id = "crusher_cost">100</span>): <span id = "crusher">0</span></h3>
+                    <button class = "clickbtn" id="crusherbtn" onclick="increaseCrush()">Crush it!!!</button>
+                    <button class = "clickbtn_ext" id="crusherbtn_ext" onclick="increaseCrush(10)">+10</button>
                 </div>
 
             </div>
@@ -93,10 +94,14 @@
         var crush = -1;
         var clicker_level = 1;
 
+            window.onclick=function(){
+                save();
+            }
+
             //initialisierung
             window.onload=function(){
                 //setInterval(autoclick,1000);
-                setInterval(save, 5000);
+                setInterval(save, 1000);
 
 
                 loadCsv();
@@ -110,6 +115,7 @@
                     if(num >= cost['crush']){
                         document.getElementById("crusher_sek").classList.remove("d-none");
                     }
+                    document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
                 }
                 update();
             }
@@ -149,12 +155,21 @@
                 localStorage['smak_clicker'] = JSON.stringify(jstuff);
             }
           
+            function reset(){
+                num=0;
+                crush=-1;
+                clicker_level=1;
+                document.getElementById("crusher_sek").classList.add("d-none");
+                document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
+                update();
+            }
+
             //after every btn click
             function update(){
                 document.getElementById("number").innerHTML = num;
                 document.getElementById("crusher").innerHTML = crush;
                 document.getElementById("click_improvements").innerHTML = clicker_level;
-                if(num<cost['crush']){
+                if(num<cost['crush']*(crush+1)){
                     document.getElementById("crusherbtn").disabled=true;
                 }else{
                     document.getElementById("crusherbtn").disabled=false;
@@ -170,6 +185,7 @@
                 if(num > cost['ClickPow']*clicker_level){
                     num -= cost['ClickPow']*clicker_level;
                     clicker_level++;
+                    document.getElementById("click_improvements_cost").innerHTML = clicker_level*cost['ClickPow'];
                     update();
                 }
             }
@@ -198,12 +214,16 @@
             //crushersection:
             function crusher(){
                 crush=0;
+                document.getElementById("crusher_cost").innerHTML = cost['crush']*(crush+1);
                 document.getElementById("crusher_sek").classList.remove("d-none");
             }
 
             function increaseCrush(n=1){
-                crush+=n;
-                num-=(cost['crush']*n);
+                for(i=0;i<n;i++){
+                    crush++;
+                    num-=(cost['crush']*crush);
+                }
+                document.getElementById("crusher_cost").innerHTML = cost['crush']*(crush+1);
                 update();
             }
             //end_crushersection
