@@ -128,15 +128,14 @@
                     dataType: "text",
                     success: function(data){
                         var csvRows = [];
-                        console.log("im gay");
                         rows = data.replace(/(\r\n|\n|\r)/gm, ";");
                         rows = rows.split(';');
-                        console.log(rows);
+                        //console.log(rows);
                         for(var i = 0; i < rows.length; i++){
                             var temp = rows[i];
                             csvRows[i] = temp.split(',');
                         }
-                        console.log(csvRows);
+                        //console.log(csvRows);
                         csvArray = csvRows;
                     }
                 });
