@@ -30,20 +30,24 @@
 
         </div>
 
-
-
         <script>
 
+        var cost=[];
+        cost['crush']=100;
+
+        var num = 0;
+        var crush = -1;
+
+            //initialisierung
             window.onload=function(){
                 setInterval(autoclick,1000);
             }
-        var num = 0;
-        var crush = -1;
+
             //after every btn click
             function update(){
                 document.getElementById("number").innerHTML = num;
                 document.getElementById("crusher").innerHTML = crush;
-                if(num<10){
+                if(num<cost['crush']){
                     document.getElementById("crusherbtn").disabled=true;
                 }else{
                     document.getElementById("crusherbtn").disabled=false;
@@ -53,7 +57,7 @@
             //numbersection
             function increaseNum(){
                 num++;
-                if(crush == -1 && num >= 10){
+                if(crush == -1 && num >= cost['crush']){
                     crusher();
                 }
                 update();
@@ -77,10 +81,11 @@
 
             function increaseCrush(){
                 crush++;
-                num-=10;
+                num-=cost['crush'];
                 update();
             }
             //end_crushersection
+            
         </script>
     </body>
 </html>
