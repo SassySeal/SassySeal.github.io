@@ -2,7 +2,7 @@
 var csvArray;
 var eaten_smaks = 0;
 var clickpower = 1;
-var friends = 0;
+var friends = 1;
 
 //sollen aus der csv datei geholt werden
 var friends_reward_step = 10;
