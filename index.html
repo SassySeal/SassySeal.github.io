@@ -2,6 +2,9 @@
 
 
 <style>
+    #coin_probabilitys{
+        color: green;
+    }
     #luck{
         padding-left: 20px;
     }
@@ -25,6 +28,7 @@
         <label for = "coin_bet">Bet amount: </label>
         <input type = "number" min = "0" id = "coin_bet">
         <button onclick = "coinflip()">flip a coin</button>
+        <span id = "coin_probabilitys"></span>
     </div><br>
 
     <div>
@@ -72,8 +76,9 @@
         luck  = Math.floor(luck*100)/100;
         console.log("Money: "+money);
         document.getElementById("monies").innerHTML = "money: "+money+"$";
-        document.getElementById("luck").innerHTML = "luck: "+luck;
+        document.getElementById("luck").innerHTML = "luck: "+luckAmount;
         document.getElementById("luck_buyer").innerHTML = "buy luck: "+luckPrice+"$";
+        document.getElementById("coin_probabilitys").innerHTML = "win: "+Math.floor(100*(1-coinflip_random/luck))+"%";
         if(money == 0){
 
         }
