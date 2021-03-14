@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+
+<style>
+    #wrapper{
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+    #coinflip{
+        /*display: none;*/
+    }
+</style>
+
+<div id = "wrapper">
+    <h2>Gambling.</h2>
+    <div id = "wallet">
+        <span id = "monies"></span>
+    </div><br>
+
+    <div id = "coinflip">
+        <label for = "coin_bet">Bet amount: </label>
+        <input type = "number" min = "0" id = "coin_bet">
+        <button onclick = "coinflip()">flip the Coin!</button>
+    </div>
+
+    <div>
+        <button onclick = "addMoney(10)">give 10 bux</button>
+    </div>
+
+</div>
+
+
+
+<script>
+
+    window.onload = function() {
+        init();
+        setInterval(save, 1000);
+    };
+
+    var money = 100;
+    var coinflip_random = 0.5;
+
+    function init(){
+        var vars = localStorage['gamblestuff'];
+        if(vars){
+            var vars2 = JSON.parse(vars);
+            console.log("money: "+ vars2["money"]);
+            money = parseInt(vars2["money"], 10);
+        }
+        else{
+            console.log("FUCK");
+        }
+        update();
+        //addMoney(0);
+    }
+
+    function update(){
+        console.log("Money: "+money);
+        document.getElementById("monies").innerHTML = "money: "+money;
+        if(money == 0){
+
+        }
+    }
+
+    function addMoney(amount){
+        money += amount;
+        update();
+    }
+    function substractMoney(amount){
+        money -= amount;
+        update();
+    }
+
+    function coinflip(){
+        bet_amount = parseInt(document.getElementById("coin_bet").value, 10);
+        
+        console.log("flipping a coin with bet = "+bet_amount+" and Money = "+money);
+
+        if(bet_amount <= money){
+            if(Math.random() <= coinflip_random){
+                addMoney(bet_amount);
+            }
+            else{
+                substractMoney(bet_amount);
+            }
+        }
+    }
+
+
+
+    function save(){
+        var jstuff  = {
+            "money": money
+        }
+        localStorage['gamblestuff'] = JSON.stringify(jstuff);
+    }
+</script>
