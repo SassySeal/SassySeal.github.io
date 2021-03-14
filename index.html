@@ -69,6 +69,7 @@
 
     function update(){
         luck = 1 + luckAmount/100;
+        luck  = Math.floor(luck*100)/100;
         console.log("Money: "+money);
         document.getElementById("monies").innerHTML = "money: "+money+"$";
         document.getElementById("luck").innerHTML = "luck: "+luck;
@@ -79,7 +80,7 @@
     }
 
     function reset(){
-        money = 0;
+        money = 100;
         luck = 1;
         luckPrice = 20;
         luckAmount = 0;
@@ -113,7 +114,7 @@
     function buyLuck(){
         if(money >= luckPrice){
             money -= luckPrice;
-            luckPrice = Math.floor(1.1*luckPrice);
+            luckPrice = Math.floor(1.05*luckPrice);
             luckAmount += 1;
             update();
         }
