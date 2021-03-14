@@ -15,6 +15,7 @@
     <h2>Gambling.</h2>
     <div id = "wallet">
         <span id = "monies"></span>
+        <span id = "luck"></span>
     </div><br>
 
     <div id = "coinflip">
@@ -24,7 +25,10 @@
     </div><br>
 
     <div>
-        <button onclick = "addMoney(1)">beg 4 bux</button>
+        <button onclick = "addMoney(100)">beg 4 bux</button>
+    </div>
+    <div>
+        <button onclick = "buyLuck()">buy luck: 20$</button>
     </div>
 
 </div>
@@ -38,6 +42,8 @@
         setInterval(save, 1000);
     };
 
+    var luckPrice = 20;
+    var luck = 1;
     var money = 100;
     var coinflip_random = 0.5;
 
@@ -58,6 +64,7 @@
     function update(){
         console.log("Money: "+money);
         document.getElementById("monies").innerHTML = "money: "+money;
+        document.getElementById("luck").innerHTML = "luck: "+luck;
         if(money == 0){
 
         }
@@ -78,7 +85,7 @@
         console.log("flipping a coin with bet = "+bet_amount+" and Money = "+money);
 
         if(bet_amount <= money){
-            if(Math.random() <= coinflip_random){
+            if(Math.random() <= coinflip_random*luck){
                 addMoney(bet_amount);
             }
             else{
@@ -87,6 +94,16 @@
         }
     }
 
+    function buyLuck(){
+        if(money >= luckPrice){
+            money -= luckPrice;
+            luckPrice * 1.1;
+            luck += 0.01;
+            console.log(luck);
+            luck = Math.floor(luck*1000)/1000;
+            update();
+        }
+    }
 
 
     function save(){
