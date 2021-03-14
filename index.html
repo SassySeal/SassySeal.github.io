@@ -2,6 +2,9 @@
 
 
 <style>
+    #luck{
+        padding-left: 20px;
+    }
     #wrapper{
         margin-left: 30%;
         margin-right: 30%;
@@ -10,7 +13,7 @@
         /*display: none;*/
     }
 </style>
-
+<button onclick = "reset()">reset</button>
 <div id = "wrapper">
     <h2>Gambling.</h2>
     <div id = "wallet">
@@ -28,7 +31,7 @@
         <button onclick = "addMoney(100)">beg 4 bux</button>
     </div>
     <div>
-        <button onclick = "buyLuck()">buy luck: 20$</button>
+        <button id = "luck_buyer" onclick = "buyLuck()">buy luck: 20$</button>
     </div>
 
 </div>
@@ -44,6 +47,7 @@
 
     var luckPrice = 20;
     var luck = 1;
+    var luckAmount = 0;
     var money = 100;
     var coinflip_random = 0.5;
 
@@ -53,6 +57,8 @@
             var vars2 = JSON.parse(vars);
             console.log("money: "+ vars2["money"]);
             money = parseInt(vars2["money"], 10);
+            luckAmount = vars2["luckAmount"];
+            luckPrice = vars2["luckPrice"];
         }
         else{
             console.log("FUCK");
@@ -62,12 +68,22 @@
     }
 
     function update(){
+        luck = 1 + luckAmount/100;
         console.log("Money: "+money);
-        document.getElementById("monies").innerHTML = "money: "+money;
+        document.getElementById("monies").innerHTML = "money: "+money+"$";
         document.getElementById("luck").innerHTML = "luck: "+luck;
+        document.getElementById("luck_buyer").innerHTML = "buy luck: "+luckPrice+"$";
         if(money == 0){
 
         }
+    }
+
+    function reset(){
+        money = 0;
+        luck = 1;
+        luckPrice = 20;
+        luckAmount = 0;
+        update();
     }
 
     function addMoney(amount){
@@ -85,7 +101,7 @@
         console.log("flipping a coin with bet = "+bet_amount+" and Money = "+money);
 
         if(bet_amount <= money){
-            if(Math.random() <= coinflip_random*luck){
+            if(Math.random() >= coinflip_random/luck){
                 addMoney(bet_amount);
             }
             else{
@@ -97,10 +113,8 @@
     function buyLuck(){
         if(money >= luckPrice){
             money -= luckPrice;
-            luckPrice * 1.1;
-            luck += 0.01;
-            console.log(luck);
-            luck = Math.floor(luck*1000)/1000;
+            luckPrice = Math.floor(1.1*luckPrice);
+            luckAmount += 1;
             update();
         }
     }
@@ -108,7 +122,9 @@
 
     function save(){
         var jstuff  = {
-            "money": money
+            "money": money,
+            "luckAmount": luckAmount,
+            "luckPrice": luckPrice
         }
         localStorage['gamblestuff'] = JSON.stringify(jstuff);
     }
