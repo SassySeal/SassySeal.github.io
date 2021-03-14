@@ -1,51 +1,98 @@
 <!DOCTYPE html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<html lang="en">
-    <head>
-        <link rel="icon" type="image/png" href="favicon.png">
-        <link rel="stylesheet" href="style.css"/>
+
+
+<style>
+    #wrapper{
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+    #coinflip{
+        /*display: none;*/
+    }
+</style>
+
+<div id = "wrapper">
+    <h2>Gambling.</h2>
+    <div id = "wallet">
+        <span id = "monies"></span>
+    </div><br>
+
+    <div id = "coinflip">
+        <label for = "coin_bet">Bet amount: </label>
+        <input type = "number" min = "0" id = "coin_bet">
+        <button onclick = "coinflip()">flip the Coin!</button>
+    </div>
+
+    <div>
+        <button onclick = "addMoney(10)">give 10 bux</button>
+    </div>
+
+</div>
+
+
+
+<script>
+
+    window.onload = function() {
+        init();
+        setInterval(save, 1000);
+    };
+
+    var money = 100;
+    var coinflip_random = 0.5;
+
+    function init(){
+        var vars = localStorage['gamblestuff'];
+        if(vars){
+            var vars2 = JSON.parse(vars);
+            console.log("money: "+ vars2["money"]);
+            money = parseInt(vars2["money"], 10);
+        }
+        else{
+            console.log("FUCK");
+        }
+        update();
+        //addMoney(0);
+    }
+
+    function update(){
+        console.log("Money: "+money);
+        document.getElementById("monies").innerHTML = "money: "+money;
+        if(money == 0){
+
+        }
+    }
+
+    function addMoney(amount){
+        money += amount;
+        update();
+    }
+    function substractMoney(amount){
+        money -= amount;
+        update();
+    }
+
+    function coinflip(){
+        bet_amount = parseInt(document.getElementById("coin_bet").value, 10);
         
-        <title>smaaaaaak!!</title>
-    </head>
-    <body>
-        <div class="bg">
-            <div class= "pos-abs p-1">
-                <div id="debug" class="d-none">
-                    <input type="number" id="incnum" value="0" min="0">
-                    <button onclick='increaseNum(Number(document.getElementById("incnum").value))'>CHEAT +Num</button>
-                    <button onclick='num=Number(document.getElementById("incnum").value);update();'>CHEAT =Num</button>
-                    <br><br>
-                    <input type="number" id="incfriends" value="-1" min="-1">
-                    <button onclick='friends+=Number(document.getElementById("incfriends").value);update();'>CHEAT +friends</button>
-                    <button onclick='friends=Number(document.getElementById("incfriends").value);update();'>CHEAT =friends</button>
-                    <br><br>
-                    <input type="number" id="incCPow" value="1" min="1">
-                    <button onclick='clicker_level+=Number(document.getElementById("incCPow").value);update();'>CHEAT +CPow</button>
-                    <button onclick='clicker_level=Number(document.getElementById("incCPow").value);update();'>CHEAT =CPow</button>
-                    <br><br>
-                </div>
-                <button id="enable_debug" onclick='debug()'>enable_cheats</button>&nbsp;<button onclick="reset()">reset</button>
-            </div>
-            <div id = "wrapper">
+        console.log("flipping a coin with bet = "+bet_amount+" and Money = "+money);
 
-                <div id="number_sek">
-                    <h3>Eaten smaks: <span id = "number">0</span></h3>
-                    <button class = "clickbtn" id="numberbtn" onclick="increaseNum()">Smak</button>
-                </div>
+        if(bet_amount <= money){
+            if(Math.random() <= coinflip_random){
+                addMoney(bet_amount);
+            }
+            else{
+                substractMoney(bet_amount);
+            }
+        }
+    }
 
-                <div id="click_improver">
-                    <h3>ClickPower: <span id = "click_improvements">0</span></h3>
-                    <button class = "clickbtn" id="clickimpbtn" onclick="increaseClickPow()">More Click Power<div id = "click_improvements_cost">10</div></button>
-                </div>
 
-                <div id="friendser_sek" class="d-none">
-                    <h3>friends: <span id = "friendser">0</span></h3>
-                    <button class = "clickbtn" id="friendserbtn" onclick="increasefriends()">share it!!!<div id = "friendser_cost">100</div></button>
-                    <button class = "clickbtn_ext" id="friendserbtn_ext" onclick="increasefriends(10)">+10<div id = "friendser10_cost">100</div></button>
-                </div>
-            </div>
-        </div>
-        
-        <script src="script.js"></script>
-    </body>
-</html>
+
+    function save(){
+        var jstuff  = {
+            "money": money
+        }
+        localStorage['gamblestuff'] = JSON.stringify(jstuff);
+    }
+</script>
